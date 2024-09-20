@@ -1,3 +1,5 @@
+import json
+
 class Alumno:
     def __init__(self, nombre, apaterno, amaterno, curp, matricula):
         self.nombre = nombre
@@ -10,7 +12,6 @@ class Alumno:
         return f'{self.nombre} {self.apaterno} {self.amaterno} - {self.curp} - {self.matricula}'
 
     def editar(self, nombre=None, apaterno=None, amaterno=None, curp=None, matricula=None):
-
         nuevo_alumno = Alumno(
             nombre or self.nombre,
             apaterno or self.apaterno,
@@ -48,8 +49,21 @@ def mostrar_alumnos():
     else:
         print("No hay alumnos en la lista.")
 
-if __name__ == "__main__":
+def guardar_alumnos(archivo):
+    alumnos_dict = [alumno.__dict__ for alumno in lista_alumnos]
+    with open(archivo, 'w') as f:
+        json.dump(alumnos_dict, f, indent=4)
+    print(f"Lista de alumnos guardada en {archivo}.")
 
+def cargar_alumnos(archivo):
+    global lista_alumnos
+    with open(archivo, 'r') as f:
+        alumnos_dict = json.load(f)
+        lista_alumnos = [Alumno(**datos) for datos in alumnos_dict]
+    print(f"Lista de alumnos cargada desde {archivo}.")
+
+if __name__ == "__main__":
+    # Ejemplo de uso
     crear_alumno("Diego", "Cisneros", "Adame", "0001", "D001")
     crear_alumno("Jose", "Mercado", "Franco", "0002", "D002")
     crear_alumno("Miguel", "Castro", "Mesta", "0003", "M003")
@@ -62,4 +76,9 @@ if __name__ == "__main__":
 
     eliminar_alumno("D002")
 
+    mostrar_alumnos()
+
+    # Guardar y cargar la lista de alumnos
+    guardar_alumnos("alumnos.json")
+    cargar_alumnos("alumnos.json")
     mostrar_alumnos()
