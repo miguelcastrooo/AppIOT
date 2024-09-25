@@ -1,18 +1,18 @@
 class Lista:
     def __init__(self):
-        self.elems = []
+        self.elementos = []
 
-    def add(self, elem):
-        self.elems.append(elem)
+    def add(self, elemento):
+        self.elementos.append(elemento)
 
-    def edit(self, idx, elem):
-        if 0 <= idx < len(self.elems):
-            self.elems[idx] = elem
+    def edit(self, indice, elemento):
+        if 0 <= indice < len(self.elementos):
+            self.elementos[indice] = elemento
         else:
-            raise IndexError("Index out of bounds")
+            raise IndexError("Índice fuera de rango")
 
     def get_all(self):
-        return self.elems
+        return self.elementos
 
     def __repr__(self):
-        return str(self.elems)
+        return str(self.elementos)
