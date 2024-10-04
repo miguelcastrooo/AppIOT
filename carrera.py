@@ -4,21 +4,35 @@ from lista import Lista
 
 class Carrera(Lista):
     def __init__(self, nombre=None, clave=None):
-        super().__init__()  # Inicializa la clase base
+        super().__init__()
         self.nombre = nombre
         self.clave = clave
 
     def add_grupo(self, grupo):
         self.add(grupo)
 
-    def edit_grupo(self, idx, grupo):
-        self.edit(idx, grupo)
-
     def get_grupos(self):
         return self.get_all()
 
+    def to_dict(self):
+        return {
+            "nombre": self.nombre,
+            "clave": self.clave,
+            "grupos": [grupo.to_dict() for grupo in self.elementos]
+        }
+
+    @classmethod
+    def from_dict(cls, data):
+        carrera = cls(nombre=data.get("nombre"), clave=data.get("clave"))
+        grupos = [Grupo.from_dict(grupo_data) for grupo_data in data.get("grupos", [])]
+        carrera.elementos = grupos
+        return carrera
+
+    def elemento_from_dict(self, elemento_dict):
+        return Carrera.from_dict(elemento_dict)
+
     def __repr__(self):
-        return f'{self.nombre}, {self.clave}'
+        return f"{self.nombre}, {self.clave} con {len(self.elementos)} grupos"
 
 if __name__ == "__main__":
     lista_carreras = Lista()
@@ -42,9 +56,12 @@ if __name__ == "__main__":
 
     lista_carreras.add(carrera2)
 
-    for carrera in lista_carreras.get_all():
-        print(carrera)
-        for grupo in carrera.get_grupos():
-            print(f"  {grupo}")
-            for alumno in grupo.get_alumnos():
-                print(f"    {alumno}")
+    lista_carreras.save_to_json("carreras.json")
+
+    carreras_cargadas = Lista()
+    carreras_cargadas.load_from_json("carreras.json")
+    print("Carreras cargadas desde JSON:", carreras_cargadas.get_all())
+
+    # Acceso a los alumnos
+    if lista_carreras.get_all():  # Verificar que haya carreras
+        print(lista_carreras.get_all()[0].get_grupos()[0].get_alumnos()[1])  # Accede al segundo alumno del primer grupo en la primera carrera.

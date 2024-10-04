@@ -1,0 +1,60 @@
+[
+    {
+        "nombre": "Tics",
+        "clave": "2212",
+        "grupos": [
+            {
+                "grado": "7mo",
+                "seccion": "A",
+                "alumnos": [
+                    {
+                        "nombre": "Miguel",
+                        "ap_materno": "Castro",
+                        "ap_paterno": "Mesta",
+                        "curp": "0001",
+                        "matricula": "A0001"
+                    },
+                    {
+                        "nombre": "Gabriela",
+                        "ap_materno": "Zamora",
+                        "ap_paterno": "Hernandez",
+                        "curp": "0002",
+                        "matricula": "A0002"
+                    }
+                ]
+            },
+            {
+                "grado": "7mo",
+                "seccion": "B",
+                "alumnos": [
+                    {
+                        "nombre": "Sofia",
+                        "ap_materno": "L\u00f3pez",
+                        "ap_paterno": "Mart\u00ednez",
+                        "curp": "0003",
+                        "matricula": "A0003"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nombre": "Matem\u00e1ticas",
+        "clave": "2213",
+        "grupos": [
+            {
+                "grado": "7mo",
+                "seccion": "C",
+                "alumnos": [
+                    {
+                        "nombre": "Carlos",
+                        "ap_materno": "P\u00e9rez",
+                        "ap_paterno": "G\u00f3mez",
+                        "curp": "0004",
+                        "matricula": "A0004"
+                    }
+                ]
+            }
+        ]
+    }
+]

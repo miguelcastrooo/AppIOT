@@ -1,0 +1,30 @@
+[
+    {
+        "nombre": "Miguel",
+        "ap_materno": "Castro",
+        "ap_paterno": "Mesta",
+        "curp": "0001",
+        "matricula": "A0001"
+    },
+    {
+        "nombre": "Gabriela",
+        "ap_materno": "Zamora",
+        "ap_paterno": "Hernandez",
+        "curp": "0002",
+        "matricula": "A0002"
+    },
+    {
+        "nombre": "Benjamin",
+        "ap_materno": "Castro",
+        "ap_paterno": "Garcia",
+        "curp": "0003",
+        "matricula": "A0003"
+    },
+    {
+        "nombre": "Claudia",
+        "ap_materno": "Mesta",
+        "ap_paterno": "Castellanos",
+        "curp": "0004",
+        "matricula": "A0004"
+    }
+]
