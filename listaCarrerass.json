@@ -1,0 +1,38 @@
+[
+    {
+        "nombre": "Ingenier\u00eda en Sistemas",
+        "clave": "IS",
+        "grupos": [
+            {
+                "grado": "1",
+                "seccion": "A",
+                "alumnos": [
+                    {
+                        "matricula": "123123123",
+                        "nombre": "Miguel"
+                    },
+                    {
+                        "matricula": "098098098",
+                        "nombre": "Angel"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "nombre": "Licenciatura en Dise\u00f1o",
+        "clave": "LD",
+        "grupos": [
+            {
+                "grado": "2",
+                "seccion": "B",
+                "alumnos": [
+                    {
+                        "matricula": "098098098",
+                        "nombre": "Aziel"
+                    }
+                ]
+            }
+        ]
+    }
+]

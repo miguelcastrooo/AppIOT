@@ -1,4 +1,5 @@
-from lista import Lista
+import json
+from listaprofe import Lista
 
 class Alumno(Lista):
     def __init__(self, matricula=None, nombre=None):
@@ -12,10 +13,10 @@ class Alumno(Lista):
 
     def __str__(self):
         if self.isLista:
-            return f"Tienes {len(self.elementos)} alumnos"
+            return f"Tienes {len(self.lista)} alumnos"
         else:
             return f"{self.matricula} {self.nombre}"
-        
+
     def getDict(self):
         if not self.isLista:
             return {
@@ -23,21 +24,52 @@ class Alumno(Lista):
                 "nombre": self.nombre
             }
         else:
-            return [a.getDict() for a in self.elementos]
+            return [a.getDict() for a in self.lista]
+
+    @classmethod
+    def from_json(cls, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+        return cls(data['matricula'], data['nombre'])
+
+    @classmethod
+    def load_from_json(cls, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            alumnos = [cls(alumno['matricula'], alumno['nombre']) for alumno in data]
+        return alumnos
+
+    def save_to_json(self, filename):
+        with open(filename, 'w') as f:
+            json.dump(self.getDict(), f, indent=4)
+
 
 if __name__ == "__main__":
-    a1 = Alumno("123123123", "Diego")
-    a2 = Alumno("098098098", "Ivan")
-    a3= Alumno("0101010101", "Miguel")
+    a1 = Alumno("123123123", "Miguel")
+    a2 = Alumno("098098098", "Angel")
+    a3 = Alumno("098098098", "Aziel")
 
-    print(a1)  
-    print(a2)
-    print(a3)
+    listaAlumnos = Alumno()  
+    listaAlumnos.add(a1)  
+    listaAlumnos.add(a2)
+    listaAlumnos.add(a3)
 
-    lista = Alumno()  
-    lista.add(a1)  
-    lista.add(a2)  
+    #print(a1.getDict()) 
+    print(listaAlumnos.getDict()) 
 
-    print(lista) 
-    print(a3.getDict())
-     
+
+    #print(f"Total de alumnos: {len(listaAlumnos.lista)}") 
+    #print(listaAlumnos)  
+
+    #a1.save_to_json("alumno1.json")
+    #a2.save_to_json("alumno2.json")
+    listaAlumnos.save_to_json("listaAlumnos.json")
+
+
+    # Cargar los alumnos desde el JSON
+    loaded_lista_alumnos = Alumno.load_from_json("listaAlumnos.json")
+
+    # Verificar los objetos cargados
+    for alumno in loaded_lista_alumnos:
+        print(alumno)
+

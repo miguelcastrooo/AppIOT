@@ -1,51 +1,73 @@
-from grupo import Grupo
-from alumno import Alumno
-from lista import Lista
+import json
+from listaprofe import Lista
+from alumnoprofe import Alumno
+from grupoprofe import Grupo
 
-
-class Grupo(Lista):
-    def _init_(self, grado=None, seccion=None):
-        if(grado == None and seccion == None):
-            super()._init_()
+class Carrera(Lista):
+    def __init__(self, nombre=None, clave=None):
+        super().__init__()
+        if nombre is None and clave is None:
+            self.isLista = True
         else:
-            self.grado = grado
-            self.seccion = seccion
-            self.alumnos = Alumno()
+            self.nombre = nombre
+            self.clave = clave
+            self.grupos = Grupo()  
             self.isLista = False
 
-    def addAlumno(self,alumno):
-        self.alumnos.add(alumno)
-
-    def _str_(self):
+    def __str__(self):
         if self.isLista:
-            return  f"Tienes {len(self.lista)} grupos"
+            return f"Tienes {len(self.lista)} carreras"
         else:
-            return f"{self.grado} {self.seccion} {self.alumnos}"
+            return f"{self.clave} - {self.nombre} con grupos: {self.grupos}"
+
+    def addGrupo(self, grupo):
+        self.grupos.add(grupo)  
 
     def getDict(self):
         if not self.isLista:
             return {
-                "grado": self.grado,
-                "seccion": self.seccion,
-                "alumnos": self.alumnos.getDict()
+                "nombre": self.nombre,
+                "clave": self.clave,
+                "grupos": self.grupos.getDict()  
             }
         else:
-            return [g.getDict() for g in self.lista]
+            return [c.getDict() for c in self.lista]
 
-if __name__ == "_main_":
-    a1=Alumno("123123123","Diego")
-    a2=Alumno("098098098","Ivan")
-    g1=Grupo("1","A")
-    g2=Grupo("2","B")
+    def getTotalAlumnos(self):
+        return sum(g.getTotalAlumnos() for g in self.grupos.lista)
+
+    def getTotalGrupos(self):
+        return len(self.grupos.lista)
+    
+    def save_to_json(self, filename):
+        with open(filename, 'w') as f:
+            json.dump(self.getDict(), f, indent=4)
+
+if __name__ == "__main__":
+    a1 = Alumno("123123123", "Miguel")
+    a2 = Alumno("098098098", "Angel")
+    a3 = Alumno("098098098", "Aziel")
+
+    g1 = Grupo("1", "A")
+    g2 = Grupo("2", "B")
     g1.addAlumno(a1)
     g1.addAlumno(a2)
-    g2.addAlumno(a1)
-    lista=Grupo()
-    lista.add(g1)
-    lista.add(g2)
+    g2.addAlumno(a3)
 
+    c1 = Carrera("Ingeniería en Sistemas", "IS")
+    c2 = Carrera("Licenciatura en Diseño", "LD")
 
-    
-    print(g1.getDict())
-    print(g2.getDict())
-    print(lista.getDict())
+    c1.addGrupo(g1)
+    c2.addGrupo(g2)
+
+    listaCarreras = Carrera()  
+    listaCarreras.add(c1)  
+    listaCarreras.add(c2)
+
+    print(c1.getDict()) 
+    print(c2.getDict()) 
+    print(listaCarreras.getDict())  
+
+    #c1.save_to_json("carrera1.json")
+    #c2.save_to_json("carrera2.json")
+    listaCarreras.save_to_json("listaCarrerass.json")

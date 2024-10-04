@@ -1,0 +1,26 @@
+[
+    {
+        "grado": "1",
+        "seccion": "A",
+        "alumnos": [
+            {
+                "matricula": "123123123",
+                "nombre": "Miguel"
+            },
+            {
+                "matricula": "098098098",
+                "nombre": "Angel"
+            }
+        ]
+    },
+    {
+        "grado": "2",
+        "seccion": "B",
+        "alumnos": [
+            {
+                "matricula": "098098098",
+                "nombre": "Aziel"
+            }
+        ]
+    }
+]
