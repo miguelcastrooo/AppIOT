@@ -43,6 +43,23 @@ class Carrera(Lista):
         with open(filename, 'w') as f:
             json.dump(self.getDict(), f, indent=4)
 
+    def load_from_json(self, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            for carrera_data in data:
+                carrera = Carrera(carrera_data['nombre'], carrera_data['clave'])
+                
+                for grupo_data in carrera_data['grupos']:
+                    grupo = Grupo(grupo_data['grado'], grupo_data['seccion'])
+                    
+                    for alumno_data in grupo_data['alumnos']:
+                        alumno = Alumno(alumno_data['matricula'], alumno_data['nombre'])
+                        grupo.addAlumno(alumno)
+                    
+                    carrera.addGrupo(grupo)
+
+                self.add(carrera)
+
 if __name__ == "__main__":
     a1 = Alumno("123123123", "Miguel")
     a2 = Alumno("098098098", "Angel")
@@ -64,10 +81,16 @@ if __name__ == "__main__":
     listaCarreras.add(c1)  
     listaCarreras.add(c2)
 
-    print(c1.getDict()) 
-    print(c2.getDict()) 
+    #print(c1.getDict()) 
+    #print(c2.getDict()) 
     print(listaCarreras.getDict())  
 
     #c1.save_to_json("carrera1.json")
     #c2.save_to_json("carrera2.json")
     listaCarreras.save_to_json("listaCarrerass.json")
+
+    loaded_carreras = Carrera()
+    loaded_carreras.load_from_json("listaCarrerass.json")  # Asegúrate de que el nombre del archivo coincida
+    
+    for carrera in loaded_carreras.lista:
+        print(carrera)

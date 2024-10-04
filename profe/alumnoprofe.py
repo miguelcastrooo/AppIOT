@@ -26,22 +26,16 @@ class Alumno(Lista):
         else:
             return [a.getDict() for a in self.lista]
 
-    @classmethod
-    def from_json(cls, filename):
-        with open(filename, 'r') as f:
-            data = json.load(f)
-        return cls(data['matricula'], data['nombre'])
-
-    @classmethod
-    def load_from_json(cls, filename):
-        with open(filename, 'r') as f:
-            data = json.load(f)
-            alumnos = [cls(alumno['matricula'], alumno['nombre']) for alumno in data]
-        return alumnos
-
     def save_to_json(self, filename):
         with open(filename, 'w') as f:
             json.dump(self.getDict(), f, indent=4)
+
+    def load_from_json(self, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            for alumno_data in data:
+                alumno = Alumno(alumno_data['matricula'], alumno_data['nombre'])
+                self.add(alumno)
 
 
 if __name__ == "__main__":
@@ -66,10 +60,8 @@ if __name__ == "__main__":
     listaAlumnos.save_to_json("listaAlumnos.json")
 
 
-    # Cargar los alumnos desde el JSON
-    loaded_lista_alumnos = Alumno.load_from_json("listaAlumnos.json")
+    loaded_lista_alumnos = Alumno()
+    loaded_lista_alumnos.load_from_json("listaAlumnos.json")
 
-    # Verificar los objetos cargados
-    for alumno in loaded_lista_alumnos:
+    for alumno in loaded_lista_alumnos.lista:
         print(alumno)
-

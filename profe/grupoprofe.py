@@ -37,7 +37,19 @@ class Grupo(Lista):
 
     def save_to_json(self, filename):
         with open(filename, 'w') as f:
-            json.dump(self.getDict(), f, indent=4) 
+            json.dump(self.getDict(), f, indent=4)
+
+    def load_from_json(self, filename):
+        with open(filename, 'r') as f:
+            data = json.load(f)
+            for grupo_data in data:
+                grupo = Grupo(grupo_data['grado'], grupo_data['seccion'])
+                
+                for alumno_data in grupo_data['alumnos']:
+                    alumno = Alumno(alumno_data['matricula'], alumno_data['nombre'])
+                    grupo.addAlumno(alumno)
+                self.add(grupo) 
+
 
 if __name__ == "__main__":
     a1 = Alumno("123123123", "Miguel")
@@ -56,17 +68,23 @@ if __name__ == "__main__":
     listaGrupos.add(g1)    
     listaGrupos.add(g2)    
 
-    print(g1.getDict())
-    print(g2.getDict())
+    #print(g1.getDict())
+    #print(g2.getDict())
     print(listaGrupos.getDict())
 
-    total_alumnos = sum(g.getTotalAlumnos() for g in listaGrupos.lista)
-    total_grupos = len(listaGrupos.lista)
+    #total_alumnos = sum(g.getTotalAlumnos() for g in listaGrupos.lista)
+    #total_grupos = len(listaGrupos.lista)
 
-    print(f"Total de alumnos: {total_alumnos}")
-    print(f"Total de grupos: {total_grupos}")
-    print(listaGrupos)
+    #print(f"Total de alumnos: {total_alumnos}")
+    #print(f"Total de grupos: {total_grupos}")
+    #print(listaGrupos)
 
     #g1.save_to_json("grupo1.json")
     #g2.save_to_json("grupo2.json")
     listaGrupos.save_to_json("listaGrupos.json")
+
+    loaded_group = Grupo()
+    loaded_group.load_from_json("listaGrupos.json")
+    
+    for grupo in loaded_group.lista:
+        print(grupo)
