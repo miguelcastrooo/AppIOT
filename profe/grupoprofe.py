@@ -52,6 +52,7 @@ class Grupo(Lista):
 
 
 if __name__ == "__main__":
+    """
     a1 = Alumno("123123123", "Miguel")
     a2 = Alumno("098098098", "Angel")
     a3 = Alumno("098098098", "Aziel")
@@ -82,6 +83,7 @@ if __name__ == "__main__":
     #g1.save_to_json("grupo1.json")
     #g2.save_to_json("grupo2.json")
     listaGrupos.save_to_json("listaGrupos.json")
+    """
 
     loaded_group = Grupo()
     loaded_group.load_from_json("listaGrupos.json")

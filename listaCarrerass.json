@@ -25,13 +25,18 @@
         "grupos": [
             {
                 "grado": "2",
-                "seccion": "B",
+                "seccion": "A",
                 "alumnos": [
                     {
                         "matricula": "098098098",
                         "nombre": "Aziel"
                     }
                 ]
+            },
+            {
+                "grado": "2",
+                "seccion": "B",
+                "alumnos": []
             }
         ]
     }

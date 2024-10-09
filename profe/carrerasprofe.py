@@ -61,12 +61,15 @@ class Carrera(Lista):
                 self.add(carrera)
 
 if __name__ == "__main__":
+    """
     a1 = Alumno("123123123", "Miguel")
     a2 = Alumno("098098098", "Angel")
     a3 = Alumno("098098098", "Aziel")
 
     g1 = Grupo("1", "A")
-    g2 = Grupo("2", "B")
+    g2 = Grupo("2", "A")
+    g3 = Grupo("2", "B")
+
     g1.addAlumno(a1)
     g1.addAlumno(a2)
     g2.addAlumno(a3)
@@ -76,6 +79,8 @@ if __name__ == "__main__":
 
     c1.addGrupo(g1)
     c2.addGrupo(g2)
+    c2.addGrupo(g3)
+
 
     listaCarreras = Carrera()  
     listaCarreras.add(c1)  
@@ -88,6 +93,7 @@ if __name__ == "__main__":
     #c1.save_to_json("carrera1.json")
     #c2.save_to_json("carrera2.json")
     listaCarreras.save_to_json("listaCarrerass.json")
+    """
 
     loaded_carreras = Carrera()
     loaded_carreras.load_from_json("listaCarrerass.json")  # Asegúrate de que el nombre del archivo coincida
